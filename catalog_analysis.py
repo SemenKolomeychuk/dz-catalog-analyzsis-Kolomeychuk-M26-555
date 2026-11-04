@@ -91,6 +91,24 @@ def count_long_movies(movies: list, threshold=120) -> int:
             count += 1
     return count    
 
+def normalize_title(title: str) -> str:
+    tcase_title = []
+    for word in title.split():
+        new_word = word[0].upper() + word[1:]
+        tcase_title.append(new_word)
+    return ' '.join(tcase_title)
+
+def make_slug(title: str) -> str:
+    return title.replace(' ', '-').lower()
+
+def format_report_line(movie: dict) -> str:
+    title = normalize_title(movie.get('title'))
+    year = movie.get('year')
+    rating = movie.get('rating')
+    dur = duration_in_hours(movie.get('duration_min'))
+    genres = ", ".join(sorted(movie.get('genres')))
+    return f'\"{title}\" ({year}) - {rating}/10, {dur}, жанры: {genres}'
+
 def main():
     print(average_rating(movies))
     print(duration_in_hours(200))
@@ -98,6 +116,9 @@ def main():
     all_movies_for(movies)
     good_movie(movies)
     print(count_long_movies(movies))
+    print(normalize_title(movies[5].get('title')))
+    print(make_slug(normalize_title(movies[5].get('title'))))
+    print(format_report_line(movies[0]))
 
 if __name__ == "__main__":
     main()
