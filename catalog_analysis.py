@@ -65,11 +65,39 @@ def decade_label(year: int) -> str:
         case _:
             return "старые"
 
+def all_movies_for(movies: list) -> None:
+    for movie in movies:
+        genres = movie.get('genres')
+        if 'comedy' in genres:
+            continue
+        else:
+            print(movie.get('title'))
+
+def good_movie(movies: list) -> None:
+    i = 0
+    while i < len(movies):
+        movie = movies[i]
+        if movie.get('rating') > 9.0:
+            print(movie.get('title'))
+            break
+        i += 1
+    else:
+        print("Шедевров не найдено")
+
+def count_long_movies(movies: list, threshold=120) -> int:
+    count = 0
+    for movie in movies:
+        if movie.get('duration_min') > threshold:
+            count += 1
+    return count    
+
 def main():
     print(average_rating(movies))
     print(duration_in_hours(200))
     print(catalog_age_stats(movies))
-
+    all_movies_for(movies)
+    good_movie(movies)
+    print(count_long_movies(movies))
 
 if __name__ == "__main__":
     main()
