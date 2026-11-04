@@ -119,6 +119,23 @@ def top_n_by_rating(movies: list, n=3) -> list:
         res.append((sorted_titles[i].get('title'), sorted_titles[i].get('rating')))
     return res
 
+def count_by_genre(movies: list) -> dict:
+    genres_count = {}
+    for movie in movies:
+        for genre in movie.get('genres'):
+            genres_count[genre] = genres_count.get(genre, 0) + 1
+    return genres_count
+
+def actor_filmography(movies: list) -> dict:
+    actor_films = {}
+    for movie in movies:
+        for actor in movie.get('actors'):
+            actor_films.setdefault(actor, list()).append(movie.get('title'))
+    return actor_films
+
+def title_over_rating(movies: list) -> dict:
+    return {movie['title']: movie['rating'] for movie in movies if movie['rating'] > average_rating(movies)}
+
 def main():
     print(average_rating(movies))
     print(duration_in_hours(200))
@@ -132,6 +149,9 @@ def main():
     print(titles_sorted_by_rating(movies))
     print(top_n_by_rating(movies))
     print(movies)
+    print(count_by_genre(movies))
+    print(actor_filmography(movies))
+    print(title_over_rating(movies))
 
 if __name__ == "__main__":
     main()
