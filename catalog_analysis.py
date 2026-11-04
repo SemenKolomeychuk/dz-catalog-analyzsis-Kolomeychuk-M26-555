@@ -109,6 +109,16 @@ def format_report_line(movie: dict) -> str:
     genres = ", ".join(sorted(movie.get('genres')))
     return f'\"{title}\" ({year}) - {rating}/10, {dur}, жанры: {genres}'
 
+def titles_sorted_by_rating(movies: list) -> list:
+    return sorted(movies, key=lambda x: x['rating'], reverse=True)
+
+def top_n_by_rating(movies: list, n=3) -> list:
+    sorted_titles = titles_sorted_by_rating(movies)
+    res = []
+    for i in range(0, n):
+        res.append((sorted_titles[i].get('title'), sorted_titles[i].get('rating')))
+    return res
+
 def main():
     print(average_rating(movies))
     print(duration_in_hours(200))
@@ -119,6 +129,9 @@ def main():
     print(normalize_title(movies[5].get('title')))
     print(make_slug(normalize_title(movies[5].get('title'))))
     print(format_report_line(movies[0]))
+    print(titles_sorted_by_rating(movies))
+    print(top_n_by_rating(movies))
+    print(movies)
 
 if __name__ == "__main__":
     main()
