@@ -48,6 +48,23 @@ def duration_in_hours(minutes: int) -> str:
     minute = minutes % 60
     return f'{hour}ч {minute}мин'
 
+def rating_tier(rating: float) -> str:
+    if rating >= 9.0:
+        return "шедевр"
+    elif rating >= 7 & rating <= 8.9:
+        return "хорошо"
+    else:
+        return "слабо" if rating < 5.0 else "средне"
+
+def decade_label(year: int) -> str:
+    match year:
+        case y if y > 2020:
+            return "новые"
+        case y if 2015 <= y <= 2020:
+            return "недавние"
+        case _:
+            return "старые"
+
 def main():
     print(average_rating(movies))
     print(duration_in_hours(200))
