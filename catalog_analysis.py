@@ -136,6 +136,18 @@ def actor_filmography(movies: list) -> dict:
 def title_over_rating(movies: list) -> dict:
     return {movie['title']: movie['rating'] for movie in movies if movie['rating'] > average_rating(movies)}
 
+def all_genres(movies: list) -> set:
+    genres = set()
+    for movie in movies:
+        genres.update(movie.get('genres'))
+    return genres
+
+def common_actors(movie1: dict, movie2: dict) -> set:
+    return set(movie1.get('actors')) & set(movie2.get('actors'))
+
+def genres_only_in_one(movies_a: list, movies_b: list) -> set:
+    return all_genres(movies_a) - all_genres(movies_b)
+
 def main():
     print(average_rating(movies))
     print(duration_in_hours(200))
@@ -152,6 +164,9 @@ def main():
     print(count_by_genre(movies))
     print(actor_filmography(movies))
     print(title_over_rating(movies))
+    print(all_genres(movies))
+    print(common_actors(movies[0], movies[3]))
+    print(genres_only_in_one(movies[5:6], movies[:5]))
 
 if __name__ == "__main__":
     main()
