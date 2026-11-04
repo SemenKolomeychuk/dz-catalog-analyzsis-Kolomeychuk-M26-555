@@ -2,7 +2,8 @@ import math
 
 movies = [
     {"title": "The Dune Chronicles", "year": 2021, "genres": {"sci-fi", "drama"},
-     "rating": 8.6, "duration_min": 155, "actors": ["T. Chalamet", "R. Ferguson", "O. Isaac"]},
+     "rating": 8.6, "duration_min": 155, "actors": [
+         "T. Chalamet", "R. Ferguson", "O. Isaac"]},
     {"title": "Kitchen Stories", "year": 2019, "genres": {"comedy", "drama"},
      "rating": 7.1, "duration_min": 98, "actors": ["A. Novak", "M. Ferguson"]},
     {"title": "silent hours", "year": 2016, "genres": {"thriller", "drama"},
@@ -134,7 +135,8 @@ def actor_filmography(movies: list) -> dict:
     return actor_films
 
 def title_over_rating(movies: list) -> dict:
-    return {movie['title']: movie['rating'] for movie in movies if movie['rating'] > average_rating(movies)}
+    return {movie['title']: movie['rating'] 
+            for movie in movies if movie['rating'] > average_rating(movies)}
 
 def all_genres(movies: list) -> set:
     genres = set()
@@ -161,14 +163,13 @@ def build_report(movies: list) -> None:
     print(f'Средний рейтинг: {average_rating(movies)}')
     print(f'Средний возраст фильмов: {catalog_age_stats(movies)[2]} лет')
     print()
-    top_movies = iter_high_rated(movies)
-    print(f'Топ-3 фильма:')
+    print('Топ-3 фильма:')
     for movie in iter_high_rated(movies):
         print(f' {format_report_line(movie)}')
     print()
     print('Фильмов по жанрам:')
-    genre_count = sorted(count_by_genre(movies).items(), key=lambda x: x[1], reverse = True)
-    for genre in genre_count:
+    genre_c = sorted(count_by_genre(movies).items(), key=lambda x: x[1], reverse=True)
+    for genre in genre_c:
         print(f' {genre[0]} - {genre[1]}')
     print()
     print(f'Все жанры каталога: {', '.join(all_genres(movies))}')
