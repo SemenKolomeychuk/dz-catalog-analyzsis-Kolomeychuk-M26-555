@@ -47,7 +47,7 @@ def catalog_age_stats(movies: list, current_year=2026) -> tuple:
 def duration_in_hours(minutes: int) -> str:
     hour = minutes // 60
     minute = minutes % 60
-    return f'{hour}ч {minute}мин'
+    return f'{hour}ч {minute}м'
 
 def rating_tier(rating: float) -> str:
     if rating >= 9.0:
